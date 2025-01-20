@@ -7,6 +7,14 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "assets": [
+      "./assets/icons/"
+    ],
+    "plugins": [
+      ["expo-font",
+        {"fonts":  ["./assets/fonts/Poppins-Regular.ttf", "./assets/fonts/Poppins-Bold.ttf"]}
+      ]
+    ],
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
