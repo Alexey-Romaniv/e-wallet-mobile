@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
-import { TouchableOpacity } from 'react-native';
-
+import {Image, TouchableOpacity} from 'react-native';
+import {Text, View} from "react-native";
 // Логотип (картинка)
-export const LogoImg = styled.Image`
+export const LogoImg = styled(Image)`
     width: 30px;
 
     @media (min-width: 768px) {
@@ -11,26 +11,33 @@ export const LogoImg = styled.Image`
 `;
 
 // Логотип-ссылка
-export const LogoLink = styled.TouchableOpacity`
+export const LogoLink = styled(TouchableOpacity)`
     flex-direction: row;
     align-items: center;
     gap: 15px;
-
+    display: flex;
     font-family: ${(p) => p.theme.fonts.titleFont};
     font-weight: 700;
-    font-size: 24px;
+    font-size: 54px;
     line-height: 1.5;
 
     color: ${(p) => p.theme.colors.titleText};
 
-    @media (min-width: 768px) {
-        font-size: 30px;
-        gap: 20px;
-    }
+ 
+`;
+// Название
+export const LogoText = styled(Text)`
+    //font-weight: 700;
+    font-size: 24px;
+    line-height: 1.5;
+
+    color: #000000;
+
 `;
 
+
 // Название
-export const Name = styled.Text`
+export const Name = styled(Text)`
     position: relative;
     color: ${(p) => p.theme.colors.secondaryText};
     font-size: 18px;
@@ -38,8 +45,8 @@ export const Name = styled.Text`
 `;
 
 // Шапка
-export const Header = styled.View`
-    position: absolute;
+export const Header = styled(View)`
+    position: relative;
     width: 100%;
     z-index: 100;
     top: 0;
@@ -49,7 +56,7 @@ export const Header = styled.View`
 `;
 
 // Контейнер внутри шапки
-export const HeaderContainer = styled.View`
+export const HeaderContainer = styled(View)`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -57,13 +64,10 @@ export const HeaderContainer = styled.View`
 `;
 
 // Флекс-контейнер для элементов в шапке
-export const HeaderFlexbox = styled.View`
+export const HeaderFlexbox = styled(View)`
     flex-direction: row;
     gap: 8px;
-
-    @media (min-width: 768px) {
-        gap: 24px;
-    }
+    
 `;
 
 // Кнопка выхода
@@ -73,18 +77,10 @@ export const ExitBtn = styled(TouchableOpacity)`
     color: ${(p) => p.theme.colors.secondaryText};
     background-color: transparent;
 
-    & span {
-        display: none;
-    }
 
     &:hover, &:focus {
         transform: scale(1.2);
     }
 
-    @media (min-width: 768px) {
-        gap: 8px;
-        & span {
-            display: flex;
-        }
-    }
+
 `;

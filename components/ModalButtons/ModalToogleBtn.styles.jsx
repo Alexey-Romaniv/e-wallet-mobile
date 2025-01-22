@@ -36,11 +36,15 @@ export const ToggleCircle = styled(View)`
   shadow-color: rgba(0, 0, 0, 0.1);
   shadow-opacity: 0.5;
   shadow-radius: 6px;
-  elevation: 5;
 `;
 
 export const ToggleIcon = styled(Image)`
-  width: 24px;
-  height: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    //transform: translate(-50%, -50%);
+  //width: 24px;
+  //height: 24px;
   tint-color: white;
 `;

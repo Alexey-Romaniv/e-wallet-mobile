@@ -13,11 +13,11 @@ width: 100%;
 export const BalanceTitle = styled(Text)`
   margin-bottom: 11px;
   
-  font-family: ${p => p.theme.fonts.mainFont};
+  font-family: ${p => p.theme.fonts.titleFont};
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
-  line-height: calc(18/12);
+  line-height: 1.3;
   text-transform: uppercase;
 
   color: #A6A6A6;

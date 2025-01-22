@@ -50,9 +50,9 @@ export const ShowModalBtn = styled(Button)`
   width: 44px;
   height: 44px;
 border-radius: 50%;
+    z-index: 15;
   
   background-color: #24CCA7;
-  background-image: url("../../assets/icons/plus.png");
   
   background-position: center;
   //background-size: 20px 20px;

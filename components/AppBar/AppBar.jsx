@@ -1,12 +1,10 @@
 import {useAuth} from "../../hooks/useAuth";
 import {useDispatch} from "react-redux";
 import {logout} from "../../redux/auth/authOperations";
-// import {NavLink} from "react-router-dom";
-import logo from '../../assets/icons/logo.svg'
-import exit from '../../assets/icons/exit.svg'
-
-import {ExitBtn, Header, HeaderContainer, HeaderFlexbox, LogoImg, LogoLink, Name} from "./AppBar.styles";
-import {Image} from "react-native";
+import Logo from '../../assets/icons/Logo'
+import {ExitBtn, Header, HeaderContainer, HeaderFlexbox, LogoImg, LogoLink, LogoText, Name} from "./AppBar.styles";
+import {Image, Text} from "react-native";
+import Exit from "../../assets/icons/Exit";
 
 export const AppBar = () => {
     const {userName} = useAuth();
@@ -14,7 +12,10 @@ export const AppBar = () => {
     const logoutHandler = () => {
         dispath(logout());
     }
-    return (<Header><HeaderContainer><LogoLink to='/'><LogoImg src={logo} alt='logoImg'/> Wallet</LogoLink> <HeaderFlexbox><Name>{userName}</Name>
-        <ExitBtn onClick={logoutHandler}><Image src={exit} width={18} height={18}/><span>Exit</span></ExitBtn></HeaderFlexbox>
+    return (<Header><HeaderContainer><LogoLink to='/'><Logo alt='logoImg'/>
+        <Text style={{fontSize: 24, fontWeight: 700}}>Wallet</Text>
+    </LogoLink>
+        <HeaderFlexbox><Name>{userName}</Name>
+            <ExitBtn onPress={logoutHandler}><Exit width={24} height={24}/></ExitBtn></HeaderFlexbox>
     </HeaderContainer></Header>);
 };

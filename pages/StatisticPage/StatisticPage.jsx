@@ -1,28 +1,30 @@
 import React, {useEffect, useState} from 'react';
-import {Container} from "../../components/CommonComponents/Container.styles";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchStatistic} from "../../redux/transactions/transactionsOperations";
-import {selectStatistic} from "../../redux/transactions/transactionSelectors";
-import {Navigation} from "../../components/Navigation/Navigation";
-import {StatisticSelected} from "../../components/StatisticSelected/StatisticSelected";
-import {Diagram} from "../../components/Diagram/Diagram";
-import {StatisticList} from "../../components/StatisticList/StatisticList";
-import {Loader} from "../../components/Loader/Loader";
-import {DesktopInfoBar} from "../../components/DesktopInfoBar/DesktopInfoBar";
-import {DesktopWrapper, StatisticFlexWrapper, StatisticTitle} from "../../components/CommonComponents/Pages.styles";
-import {View} from "react-native";
+import {View, Text, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchStatistic} from '../../redux/transactions/transactionsOperations';
+import {selectStatistic} from '../../redux/transactions/transactionSelectors';
+import {StatisticSelected} from '../../components/StatisticSelected/StatisticSelected';
+import {Diagram} from '../../components/Diagram/Diagram';
+import {StatisticList} from '../../components/StatisticList/StatisticList';
+import {Loader} from '../../components/Loader/Loader';
+import { ProgressCircle} from 'react-native-svg-charts'
 
 const StatisticPage = () => {
-    const [selectedMonth, setSelectedMonth] = useState('')
-    const [selectedYear, setSelectedYear] = useState('')
+    const [selectedMonth, setSelectedMonth] = useState(String(new Date().getMonth() + 1)); // Текущий месяц
+    const [selectedYear, setSelectedYear] = useState(String(new Date().getFullYear())); // Текущий год
 
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(fetchStatistic({selectedMonth, selectedYear}));
     }, [dispatch, selectedMonth, selectedYear]);
 
     const statistic = useSelector(selectStatistic);
-    if (!statistic) return <Loader/>
+
+    if (!statistic) {
+        return <Loader/>;
+    }
+
     const generateRandomColors = (count) => {
         const colors = [];
         for (let i = 0; i < count; i++) {
@@ -31,29 +33,44 @@ const StatisticPage = () => {
         }
         return colors;
     };
-    console.log(statistic)
+
     const statisticLength = Object.values(statistic.categories).length;
     const backgroundColors = generateRandomColors(statisticLength);
-    const combinedArray = Object.values(statistic.categories).map((el, index) => {
-        return {
-            name: Object.keys(statistic.categories)[index], sum: el, color: backgroundColors[index]
-        }
-    })
 
-    return <Container>
-            <DesktopWrapper>
-              <Navigation/>
-                <StatisticFlexWrapper>
-                    <View>
-                        <StatisticTitle>Statistic</StatisticTitle>
-                        <Diagram data={combinedArray}/>
-                    </View>
-                    <View>
-                        <StatisticSelected setMonth={setSelectedMonth} setYear={setSelectedYear}/>
-                        <StatisticList statistic={statistic} list={combinedArray}/>
-                    </View>
-                </StatisticFlexWrapper>
-            </DesktopWrapper>
-    </Container>
-}
+    const combinedArray = Object.values(statistic.categories).map((el, index) => ({
+        name: Object.keys(statistic.categories)[index],
+        sum: el,
+        color: backgroundColors[index],
+    }));
+    console.log("Hellooo");
+
+    return (<SafeAreaView style={{flex: 1}}>
+
+            <ScrollView style={styles.container}>
+
+                <Text style={styles.title}>Statistic</Text>
+                <Diagram data={combinedArray} />
+
+                <StatisticSelected setMonth={setSelectedMonth} setYear={setSelectedYear}/>
+                <StatisticList statistic={statistic} list={combinedArray}/>
+            </ScrollView>
+        </SafeAreaView>
+
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 16,
+        backgroundColor: '#f8f9fa',
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 16,
+    },
+});
+
 export default StatisticPage;

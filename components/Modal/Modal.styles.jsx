@@ -1,19 +1,17 @@
 import styled from 'styled-components/native';
 import closeBtn from '../../assets/images/closeBtn.svg'
-import {TouchableOpacity, View, Text} from "react-native";
+import {TouchableOpacity, View, Text, SafeAreaView, Modal} from "react-native";
 
-export const ModalWrapper = styled(View)`
+export const ModalWrapper = styled(Modal)`
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   left: 0;
+    
   top: 66px;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  
-  @media screen and (min-width: 768px){
-    top: 40px;
-  }
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 1);
+    
 `;
 
 export const ModalContent = styled(View)`
@@ -24,7 +22,7 @@ export const ModalContent = styled(View)`
   width: 100%;
   height: 100%;
   //transform: translate(-50%, -50%);
-  background-color: #fff;
+  background-color: #ffffff;
   padding: 20px;
   
   display: flex;
@@ -48,7 +46,8 @@ export const CloseButton = styled(TouchableOpacity)`
   
   border: none;
   cursor: pointer;
-  background: url(${closeBtn});
+  //background: url(${closeBtn});
+  background:#000;
   background-size: contain;
   
   
@@ -60,7 +59,7 @@ export const ModalTitle = styled(Text)`
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
-  line-height: calc(36/24);
+  line-height: 1.3;
   text-align: center;
 `
 
@@ -69,17 +68,9 @@ export const DesktopModalFlex = styled(View)`
   flex-direction: column;
   gap: 40px;
   
-  @media screen and (min-width: 768px){
-    flex-direction: row;
-    gap: 30px;
-    align-items: flex-end;
-  }
+  
 `;
 
 export const ModalButtonsWrapper = styled(View)`
-    @media screen and (min-width: 768px){
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+   
 `;

@@ -35,7 +35,7 @@ export const StatisticSelected = ({ setMonth, setYear }) => {
     return (
         <SelectContainer>
             <Picker
-                style={{ flex: 1, height: 50 }}
+                style={{ flex: 1 }}
                 selectedValue=""
                 onValueChange={handleChangeMonth}
             >
@@ -45,7 +45,7 @@ export const StatisticSelected = ({ setMonth, setYear }) => {
                 ))}
             </Picker>
             <Picker
-                style={{ flex: 1, height: 50 }}
+                style={{ flex: 1,}}
                 selectedValue=""
                 onValueChange={handleChangeYear}
             >

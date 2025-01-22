@@ -2,11 +2,10 @@ import styled from "styled-components/native";
 import { ImageBackground, Text, View } from "react-native";
 
 export const CurrencyTableWrapper = styled(View)`
-    width: 100%;
-    height: auto;
+    align-self: stretch;
+    height: 200px;
     border-radius: 30px;
     background-color: #4a56e2;
-    overflow: hidden;
 `;
 
 export const CurrencyTableBackground = styled(ImageBackground)`
@@ -28,8 +27,7 @@ export const CurrencyHeader = styled(View)`
 export const CurrencyHeaderText = styled(Text)`
     font-size: 18px;
     font-weight: 700;
-    font-family: ${(p) => p.theme.fonts.mainFont};
-    color: ${(p) => p.theme.colors.white};
+    color: #FFFFFF;
 `;
 
 export const CurrencyBodyRow = styled(View)`
@@ -42,6 +40,6 @@ export const CurrencyBodyRow = styled(View)`
 export const CurrencyBodyText = styled(Text)`
     font-size: 16px;
     font-weight: 400;
-    font-family: ${(p) => p.theme.fonts.mainFont};
-    color: ${(p) => p.theme.colors.white};
+    
+    color: #FFFFFF;
 `;

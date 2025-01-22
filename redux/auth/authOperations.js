@@ -38,7 +38,6 @@ export const login = createAsyncThunk(
         try {
             const response = await axios.post("/users/login", userData);
             const {data} = response;
-            console.log(data.token)
             token.set(data.token);
             return data;
         } catch (e) {
@@ -79,6 +78,7 @@ export const fetchCurrentUser = createAsyncThunk(
         try {
             const response = await axios("/users/current");
             return response.data;
+
         } catch (e) {
             Toast.show({
                 type:"error",

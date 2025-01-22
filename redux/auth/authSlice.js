@@ -9,6 +9,7 @@ import {
 } from "./authOperations";
 
 const initialState = {
+
   user: {
     name: "",
     email: "",
@@ -31,8 +32,6 @@ const authPersistConfig = {
 export const handlePending = (state) => {
   state.isLoading = true;
   state.error = null;
-  console.log(state.error);
-  console.log("111")
 };
 
 export const handleRejected = (state, { payload }) => {
@@ -87,6 +86,7 @@ const authSlice = createSlice({
       .addCase(fetchCurrentUser.fulfilled, (state, { payload }) => {
         state.user = payload;
         state.isAuth = true;
+
 
         state.isLoading = false;
         state.isFetching = false;

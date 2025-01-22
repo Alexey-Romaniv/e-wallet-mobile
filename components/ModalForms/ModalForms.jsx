@@ -1,24 +1,27 @@
-import React from 'react';
-import {Formik} from 'formik';
-import * as Yup from 'yup';
-import {useDispatch} from "react-redux";
-import {addTransaction} from "../../redux/transactions/transactionsOperations";
-import {ModalComment, ModalDate, ModalForm, ModalInput, SelectInput} from "./ModalFoms.styles";
+import React from "react";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import {View, TextInput, Button, Text, TouchableOpacity, Label} from "react-native";
+import {Picker} from "@react-native-picker/picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { addTransaction } from "../../redux/transactions/transactionsOperations";
 
-
+// Валидационные схемы
 const incomeSchema = Yup.object().shape({
-    sum: Yup.number().required('Required'),
-    date: Yup.date().required('Required'),
+    sum: Yup.number().required("Required"),
+    date: Yup.date().required("Required"),
     comment: Yup.string().max(25).notRequired(),
 });
 
 const expenseSchema = Yup.object().shape({
-    sum: Yup.number().required('Required'),
-    date: Yup.date().required('Required'),
+    sum: Yup.number().required("Required"),
+    date: Yup.date().required("Required"),
     comment: Yup.string().required(),
-    category: Yup.string().max(25).notRequired('Required'),
+    category: Yup.string().max(25).notRequired(),
 });
 
+// IncomeForm
 export const IncomeForm = ({ toggleModal }) => {
     const dispatch = useDispatch();
 
@@ -32,40 +35,48 @@ export const IncomeForm = ({ toggleModal }) => {
             }}
         >
             {({ handleChange, values, setFieldValue, handleSubmit }) => (
-                <ModalForm>
-                    <ModalInput
+                <View style={{ padding: 20 }}>
+                    <TextInput
+                        style={{
+                            borderBottomWidth: 1,
+                            marginBottom: 15,
+                            padding: 10,
+                        }}
                         placeholder="0.00"
                         keyboardType="numeric"
                         onChangeText={handleChange("sum")}
                         value={values.sum}
                     />
-                    <ModalDate>
-                        <DateTimePicker
-                            value={values.date}
-                            mode="date"
-                            display="default"
-                            onChange={(event, selectedDate) =>
-                                setFieldValue("date", selectedDate || values.date)
-                            }
-                        />
-                    </ModalDate>
-                    <ModalComment>
-                        <ModalInput
-                            multiline
-                            placeholder="Comment"
-                            onChangeText={handleChange("comment")}
-                            value={values.comment}
-                        />
-                    </ModalComment>
-                    <View>
+                    <DateTimePicker
+                        value={values.date}
+                        mode="date"
+                        display="default"
+                        onChange={(event, selectedDate) =>
+                            setFieldValue("date", selectedDate || values.date)
+                        }
+                    />
+                    <TextInput
+                        style={{
+                            borderBottomWidth: 1,
+                            marginTop: 15,
+                            padding: 10,
+                        }}
+                        multiline
+                        placeholder="Comment"
+                        onChangeText={handleChange("comment")}
+                        value={values.comment}
+                    />
+                    <View style={{ flexDirection: "row", marginTop: 20 }}>
                         <Button title="Add" onPress={handleSubmit} />
                         <Button title="Cancel" onPress={toggleModal} />
                     </View>
-                </ModalForm>
+                </View>
             )}
         </Formik>
     );
 };
+
+// ExpenseForm
 export const ExpenseForm = ({ toggleModal }) => {
     const dispatch = useDispatch();
     const categories = [
@@ -78,6 +89,8 @@ export const ExpenseForm = ({ toggleModal }) => {
         { label: "Education", value: "education" },
         { label: "Reset", value: "reset" },
     ];
+
+    console.log("dasdsadsadsad", toggleModal)
 
     return (
         <Formik
@@ -95,10 +108,13 @@ export const ExpenseForm = ({ toggleModal }) => {
             }}
         >
             {({ handleChange, values, setFieldValue, handleSubmit }) => (
-                <ModalForm>
-                    <SelectInput
+                <View style={{ padding: 20 }}>
+                    <Text>Category:</Text>
+                    <Picker
+                        mode={'dialog'}
                         selectedValue={values.category}
                         onValueChange={(itemValue) => setFieldValue("category", itemValue)}
+                        style={{ marginBottom: 15 }}
                     >
                         {categories.map((category) => (
                             <Picker.Item
@@ -107,36 +123,44 @@ export const ExpenseForm = ({ toggleModal }) => {
                                 value={category.value}
                             />
                         ))}
-                    </SelectInput>
-                    <ModalInput
+                    </Picker>
+
+                    <Text>Value (money):</Text>
+                    <TextInput
+                        style={{
+                            borderBottomWidth: 1,
+                            marginBottom: 15,
+                            padding: 10,
+                        }}
                         placeholder="0.00"
                         keyboardType="numeric"
                         onChangeText={handleChange("sum")}
                         value={values.sum}
                     />
-                    <ModalDate>
-                        <DateTimePicker
-                            value={values.date}
-                            mode="date"
-                            display="default"
-                            onChange={(event, selectedDate) =>
-                                setFieldValue("date", selectedDate || values.date)
-                            }
-                        />
-                    </ModalDate>
-                    <ModalComment>
-                        <ModalInput
-                            multiline
-                            placeholder="Comment"
-                            onChangeText={handleChange("comment")}
-                            value={values.comment}
-                        />
-                    </ModalComment>
-                    <View>
+                    <DateTimePicker
+                        value={values.date}
+                        mode="date"
+                        display="default"
+                        onChange={(event, selectedDate) =>
+                            setFieldValue("date", selectedDate || values.date)
+                        }
+                    />
+                    <TextInput
+                        style={{
+                            borderBottomWidth: 1,
+                            marginTop: 15,
+                            padding: 10,
+                        }}
+                        multiline
+                        placeholder="Comment"
+                        onChangeText={handleChange("comment")}
+                        value={values.comment}
+                    />
+                    <View style={{ flexDirection: "row", marginTop: 20 }}>
                         <Button title="Add" onPress={handleSubmit} />
                         <Button title="Cancel" onPress={toggleModal} />
                     </View>
-                </ModalForm>
+                </View>
             )}
         </Formik>
     );
